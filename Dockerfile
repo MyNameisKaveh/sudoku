@@ -26,4 +26,5 @@ ENV FLASK_SECRET_KEY="a_very_secure_default_secret_key_that_you_SHOULD_override"
 
 # 8. Run Gunicorn to serve the Flask app
 # The module is web_app.app and the Flask instance is named 'app'
-CMD ["gunicorn", "--workers", "2", "--bind", "0.0.0.0:$PORT", "web_app.app:app"]
+# Use sh -c to ensure $PORT is expanded by the shell
+CMD sh -c 'gunicorn --workers 2 --bind 0.0.0.0:$PORT web_app.app:app'
