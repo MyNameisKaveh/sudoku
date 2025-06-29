@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بازی سودوکو</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>سودوکو</h1>
+
+        <div class="game-controls">
+            <div class="difficulty-selector">
+                <label for="difficulty">سطح سختی:</label>
+                <select id="difficulty">
+                    <option value="easy" selected>آسان</option>
+                    <option value="medium">متوسط</option>
+                    <option value="hard">سخت</option>
+                </select>
+            </div>
+            <button id="new-game-btn">بازی جدید</button>
+        </div>
+
+        <div id="sudoku-board-container">
+            <!-- جدول سودوکو توسط جاوااسکریپت در اینجا ساخته می‌شود -->
+        </div>
+
+        <div class="ingame-controls">
+            <div id="numbers-panel">
+                <!-- دکمه‌های اعداد ۱-۹ و پاک‌کن توسط جاوااسکریپت -->
+            </div>
+            <div class="action-buttons">
+                <button id="check-btn" disabled>بررسی</button>
+                <button id="solve-btn" disabled>حل کن</button>
+                <button id="hint-btn" disabled>راهنمایی</button>
+                <button id="undo-btn" disabled>واگرد</button>
+            </div>
+        </div>
+
+        <div id="timer-section">
+            زمان: <span id="timer">00:00</span>
+        </div>
+
+        <div id="message-area">
+            <!-- پیام‌ها به کاربر در اینجا نمایش داده می‌شوند -->
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

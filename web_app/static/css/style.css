@@ -1,0 +1,273 @@
+/* web_app/static/css/style.css */
+body {
+    font-family: 'Tahoma', sans-serif; /* یک فونت فارسی خوانا */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* تغییر به flex-start برای جلوگیری از کشیدگی عمودی اولیه */
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+    direction: rtl;
+    padding-top: 20px; /* کمی فاصله از بالا */
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    text-align: center;
+    width: auto; /* اجازه می‌دهد محتوا عرض را تعیین کند */
+    max-width: 500px; /* حداکثر عرض برای جلوگیری از کشیدگی زیاد در صفحات بزرگ */
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.game-controls {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* فاصله بین انتخابگر سطح و دکمه */
+    flex-wrap: wrap; /* اجازه شکستن در صفحات کوچکتر */
+}
+
+.difficulty-selector {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#sudoku-board-container {
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    width: 360px; /* اندازه ثابت برای جدول */
+    height: 360px; /* ارتفاع ثابت برای جدول */
+    border: 3px solid #333; /* خط بیرونی ضخیم تر */
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+}
+
+.sudoku-cell {
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4em;
+    cursor: pointer;
+    background-color: #fff;
+    transition: background-color 0.2s;
+}
+
+.sudoku-cell input {
+    width: 100%; /* ورودی تمام خانه را بگیرد */
+    height: 100%;
+    text-align: center;
+    border: none;
+    outline: none;
+    font-size: inherit; /* ارث‌بری اندازه فونت از والد */
+    padding: 0;
+    margin: 0;
+    background-color: transparent; /* ورودی شفاف */
+    cursor: pointer;
+    color: #007bff; /* رنگ آبی برای اعداد وارد شده توسط کاربر */
+}
+
+.sudoku-cell.pre-filled input {
+    font-weight: bold;
+    color: #000; /* رنگ مشکی و ضخیم برای اعداد ثابت */
+    cursor: not-allowed;
+}
+
+.sudoku-cell.selected {
+    background-color: #e0f0ff; /* رنگ پس‌زمینه برای خانه انتخاب شده */
+    outline: 2px solid #007bff; /* یک حاشیه برای تاکید بیشتر */
+    z-index: 1;
+}
+
+/* خطوط ضخیم‌تر برای جدا کردن بلوک‌های 3x3 */
+/* ردیف ها */
+#sudoku-board-container .sudoku-cell:nth-child(n+19):nth-child(-n+27), /* مرز پایین ردیف 3 */
+#sudoku-board-container .sudoku-cell:nth-child(n+46):nth-child(-n+54)  /* مرز پایین ردیف 6 */
+{
+    border-bottom: 2px solid #333;
+}
+
+/* ستون ها */
+#sudoku-board-container .sudoku-cell:nth-child(3n) {
+    border-left: 2px solid #333; /* مرز چپ ستون 3 و 6 (چون rtl هستیم، چپ می شود) */
+}
+/* اصلاح برای اینکه خط بیرونی جدول را دوباره نکشد */
+#sudoku-board-container .sudoku-cell:nth-child(9n) {
+     border-left: 1px solid #ccc; /* برگرداندن به خط عادی برای آخرین ستون در هر ردیف */
+}
+/* خطوط برای اولین ستون در حالت rtl */
+#sudoku-board-container .sudoku-cell:nth-child(9n-8) {
+    border-right: none; /* حذف خط راست پیش فرض */
+}
+
+
+.ingame-controls {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#numbers-panel {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+#numbers-panel button {
+    width: 40px; /* کمی بزرگتر */
+    height: 40px;
+    font-size: 1.3em;
+    border-radius: 5px; /* کمی گردتر */
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.action-buttons button, .game-controls button, #numbers-panel button {
+    padding: 8px 12px;
+    font-size: 1em;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 2px rgba(0,0,0,0.05);
+}
+
+.action-buttons button:hover, .game-controls button:hover, #numbers-panel button:hover {
+    background-color: #e9e9e9;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.action-buttons button:active, .game-controls button:active, #numbers-panel button:active {
+    background-color: #ddd;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+
+.action-buttons button:disabled, #numbers-panel button:disabled {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+    color: #6c757d;
+    box-shadow: none;
+}
+#new-game-btn { /* دکمه بازی جدید را کمی متمایز کنیم */
+    background-color: #28a745;
+    color: white;
+    border-color: #28a745;
+}
+#new-game-btn:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+
+#timer-section {
+    font-size: 1.1em;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+#message-area {
+    margin-top: 15px;
+    padding: 10px 15px;
+    min-height: 24px;
+    border-radius: 4px;
+    font-weight: 500; /* کمی خواناتر */
+    text-align: right; /* برای پیام‌های فارسی */
+    visibility: hidden; /* در ابتدا مخفی */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+#message-area.visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+.message-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.message-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.message-info {
+    background-color: #e2e3e5;
+    color: #383d41;
+    border: 1px solid #d6d8db;
+}
+
+.sudoku-cell.error input {
+    color: red !important;
+    font-weight: bold;
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0%, 100% {transform: translateX(0);}
+  25% {transform: translateX(-3px);}
+  75% {transform: translateX(3px);}
+}
+
+.sudoku-cell.hint-cell {
+    background-color: #d1eaff !important;
+    animation: pulse 0.8s ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7); }
+    50% { transform: scale(1.05); box-shadow: 0 0 5px 10px rgba(0, 123, 255, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 123, 255, 0); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 540px) { /* نقطه شکست را کمی تغییر دادم */
+    .container {
+        width: 98%; /* کمی بیشتر فضا بدهیم */
+        padding: 10px;
+    }
+    #sudoku-board-container {
+        width: 100%;
+        max-width: 360px;
+        height: auto;
+        aspect-ratio: 1 / 1;
+    }
+    .sudoku-cell {
+        font-size: max(3.5vw, 1em); /* اندازه فونت واکنش‌گرا با حداقل سایز */
+    }
+    .game-controls, .ingame-controls, .action-buttons, #numbers-panel {
+        gap: 8px; /* فاصله کمتر در موبایل */
+    }
+    .action-buttons button, .game-controls button, #numbers-panel button {
+        padding: 6px 10px;
+        font-size: 0.9em;
+    }
+     #numbers-panel button {
+        width: 35px;
+        height: 35px;
+        font-size: 1.1em;
+    }
+}
