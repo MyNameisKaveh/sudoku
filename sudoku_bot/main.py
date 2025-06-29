@@ -160,11 +160,8 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
         "/help - نمایش این پیام راهنما."
     )
     await update.message.reply_text(
-        "دستورات موجود:\n"
-        "/start - شروع کار با ربات\n"
-        "/new_game [difficulty] - شروع بازی جدید (مثلا: /new_game medium)\n"
         help_text,
-        parse_mode=ParseMode.MARKDOWN_V2
+        parse_mode=ParseMode.MARKDOWN_V2 # اطمینان از اینکه از پارس مود مناسب استفاده می‌شود اگر در help_text از مارک‌داون استفاده شده باشد
     )
 
 def main() -> None:
